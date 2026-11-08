@@ -1,0 +1,1378 @@
+PROJECT: mint-helper
+Complete Application, Website and GitHub Development Instructions
+
+You are acting as a senior Rust developer, Linux systems engineer, software architect, UI/UX designer and open-source project maintainer.
+
+Your task is to help me build a complete, functional Linux desktop application called mint-helper.
+
+Do not treat this as a simple website or frontend project.
+
+This project consists of a real Linux desktop application, a separate download website, Linux distribution packages, documentation and a complete GitHub repository.
+
+I am developing this project using Google AI Studio, so structure the implementation into manageable files and development stages. Generate actual source code and configuration files, not just descriptions or mockups.
+
+If an operation cannot be performed in the current development environment, provide the exact source files and commands needed to perform it on Linux.
+
+Do not claim that binaries have been compiled, tested or uploaded unless that has actually happened.
+
+PART 1 — PROJECT PURPOSE
+1. What is mint-helper?
+
+mint-helper is a free, open-source Linux desktop companion designed primarily for Linux Mint.
+
+The purpose is to make Linux easier for new users and more convenient for experienced users.
+
+After installing Linux Mint, users often need to perform many manual tasks:
+
+Install applications.
+Configure a browser.
+Install multimedia codecs.
+Install additional fonts.
+Configure LibreOffice.
+Enable the firewall.
+Configure automatic updates.
+Install developer tools.
+Configure their desktop.
+Clean unnecessary files.
+Configure backups.
+Manage Flatpak applications.
+Check system information.
+
+mint-helper should bring these tasks together into one modern, simple and reliable application.
+
+The application should be useful beyond the first installation. Users should be able to keep it installed for regular system maintenance and management.
+
+2. Project details
+
+Application name: mint-helper
+
+Website name: mint-helper
+
+Primary operating system: Linux Mint.
+
+Supported environments:
+
+Linux Mint Cinnamon.
+Linux Mint MATE.
+Linux Mint Xfce.
+Ubuntu.
+Compatible Debian-based distributions where supported.
+
+Programming language: Rust.
+
+Desktop interface: GTK4 with Relm4 or another appropriate Rust GUI framework.
+
+Website: Astro.
+
+License: GPL-3.0-or-later, subject to dependency compatibility.
+
+Distribution formats:
+
+Flatpak.
+AppImage.
+Source code.
+
+APT should be supported where appropriate, but Flatpak should be preferred for suitable desktop applications.
+
+The application must be completely open source.
+
+There must be:
+
+No AI functionality.
+No AI API integrations.
+No telemetry.
+No tracking.
+No advertising.
+No subscriptions.
+No paid features.
+No mandatory accounts.
+No unnecessary network connections.
+PART 2 — APPLICATION STRUCTURE
+
+Create a native Linux desktop application.
+
+Use a clean sidebar navigation.
+
+The main sections should be:
+
+MAIN:
+
+Overview
+Post Installation
+Applications
+System Health
+
+SYSTEM:
+
+Maintenance
+Security
+Storage & Cleanup
+Hardware & Drivers
+Customization
+Recovery & Backups
+
+ADVANCED:
+
+Developer Tools
+Operation History
+Settings
+About
+
+Make the interface easy to understand.
+
+Do not overcrowd the sidebar.
+
+Use appropriate icons and consistent navigation.
+
+Remember the last selected page where appropriate.
+
+PART 3 — OVERVIEW DASHBOARD
+
+Build a real system information dashboard.
+
+Display:
+
+OPERATING SYSTEM:
+
+Linux distribution.
+Distribution version.
+Kernel version.
+Desktop environment.
+Architecture.
+Hostname.
+Uptime.
+
+CPU:
+
+CPU model.
+CPU usage.
+Core count.
+
+MEMORY:
+
+Total RAM.
+Used RAM.
+Available RAM.
+Memory usage.
+
+STORAGE:
+
+Total disk space.
+Used space.
+Free space.
+Mounted partitions.
+Disk health where supported.
+
+GPU:
+
+GPU model.
+Driver information where available.
+
+BATTERY:
+
+Battery status.
+Charge level.
+Battery health where supported.
+
+NETWORK:
+
+Connection status.
+Connection type.
+Network interface information.
+
+SYSTEM STATUS:
+
+Firewall status.
+Available system updates.
+Available Flatpak updates.
+Backup status.
+
+Create useful visual resource indicators.
+
+Allow the user to refresh system information.
+
+Resource monitoring should be efficient and should not constantly consume CPU resources.
+
+Use real system data. Never use fake statistics or placeholder values in production.
+
+PART 4 — POST INSTALLATION WIZARD
+
+This is the most important feature.
+
+Create a beginner-friendly wizard that helps users configure a fresh Linux Mint installation.
+
+The wizard must support:
+
+Automatic recommendations.
+Manual configuration.
+Skipping individual sections.
+Reviewing all changes.
+Confirming operations.
+Executing operations.
+Viewing progress.
+Handling failures.
+
+The automatic mode must not execute changes immediately. It should generate a recommended setup plan that the user can review.
+
+Step 1: Welcome
+
+Display a welcome message.
+
+Explain that the wizard helps configure:
+
+Browsers.
+Office software.
+Codecs.
+Fonts.
+Security.
+Updates.
+Applications.
+Developer tools.
+
+Provide:
+
+Configure automatically.
+Customize manually.
+Step 2: Browsers
+
+Detect installed browsers.
+
+Support:
+
+Firefox.
+LibreWolf.
+Vivaldi.
+Chromium.
+
+Show:
+
+Browser icon.
+Browser name.
+Installed status.
+Version.
+Package source.
+Selection checkbox.
+
+Firefox should be selected by default if already installed.
+
+Allow users to replace Firefox with another browser.
+
+If an application is selected for removal, display a clear warning.
+
+Never automatically delete browser profiles.
+
+Bookmarks, saved passwords, extensions, cookies and browser settings must be treated as separate user data.
+
+Browser data removal must be optional and separately confirmed.
+
+Prefer trusted Flatpak packages where appropriate.
+
+Use official download sources.
+
+Browser ad-blocking
+
+Recommend Firefox with the official uBlock Origin extension.
+
+Provide instructions and a link to the official extension listing.
+
+Do not distribute modified browsers or unauthorized extension builds.
+
+Step 3: Office
+
+Support:
+
+LibreOffice.
+Thunderbird.
+Other useful productivity software.
+
+Provide an option to configure LibreOffice using the Tabbed interface.
+
+Explain that this resembles the ribbon-style layout found in Microsoft Office.
+
+Make configuration reversible.
+
+Fonts
+
+Offer commonly requested fonts:
+
+Arial.
+Times New Roman.
+Courier New.
+Other compatible fonts.
+
+Respect licensing restrictions.
+
+Never redistribute proprietary fonts without authorization.
+
+Where necessary, provide instructions for obtaining fonts legally.
+
+Step 4: Multimedia
+
+Offer supported multimedia codecs.
+
+Use official Linux Mint and distribution repositories.
+
+Explain the purpose of each installation.
+
+Do not imply that LibreOffice requires multimedia codecs.
+
+Step 5: Security
+Firewall
+
+Detect UFW.
+
+Show its status.
+
+Offer:
+
+Install UFW.
+Enable UFW.
+Disable UFW.
+View firewall rules.
+
+Warn users about remote access and network services before changing firewall policies.
+
+Automatic updates
+
+Offer supported automatic security update configuration.
+
+Explain which updates will be installed and how the feature can be disabled later.
+
+Other security recommendations
+
+Display:
+
+Firewall status.
+Security update status.
+Backup status.
+Disk encryption status where detectable.
+Application permission recommendations.
+
+Never change sensitive security configurations silently.
+
+Step 6: Preferences
+
+Allow users to configure:
+
+Default browser.
+Default mail application.
+Default office application.
+Application associations.
+Startup applications.
+Common desktop preferences.
+
+Use supported Linux Mint and Cinnamon configuration mechanisms.
+
+Do not remove or hide official system settings.
+
+Step 7: Developer tools
+
+Offer optional installation of:
+
+Git.
+Rust.
+Cargo.
+Python.
+Node.js.
+Build Essentials.
+Developer editors.
+Terminal utilities.
+Gear Lever.
+Flatpak development tools.
+
+Clearly identify proprietary applications.
+
+Do not install tools without user selection.
+
+Step 8: Recommended applications
+
+Create categories:
+
+Internet:
+
+Firefox.
+LibreWolf.
+Vivaldi.
+Chromium.
+Thunderbird.
+
+Productivity:
+
+LibreOffice.
+Other suitable office applications.
+
+Multimedia:
+
+VLC.
+OBS Studio.
+Kdenlive.
+Audacity.
+
+Graphics:
+
+GIMP.
+Inkscape.
+Krita.
+Blender.
+
+Gaming:
+
+Steam.
+Heroic Games Launcher.
+Lutris.
+
+Utilities:
+
+Flatseal.
+Bottles.
+Gear Lever.
+Backup tools.
+
+Development:
+
+Git.
+Rust tools.
+Python tools.
+Editors.
+
+Every application must display:
+
+Name.
+Description.
+Icon.
+Installation status.
+Package source.
+Version where available.
+Install or remove action.
+
+Prefer trusted Flatpak packages when appropriate.
+
+Do not choose a package based solely on its format. Check its publisher, source and suitability.
+
+PART 5 — SETUP PROFILES
+
+Create preset profiles.
+
+EVERYDAY USER:
+
+Browser.
+Office.
+Multimedia.
+Security.
+Basic utilities.
+
+DEVELOPER:
+
+Git.
+Rust.
+Python.
+Build tools.
+Editors.
+
+GAMING:
+
+Steam.
+Heroic.
+Lutris.
+Controller utilities.
+
+CREATIVE:
+
+GIMP.
+Blender.
+Krita.
+OBS.
+Kdenlive.
+
+CUSTOM:
+
+User selects everything.
+
+Profiles must be customizable.
+
+Selecting a profile should create an installation plan, not immediately execute commands.
+
+Allow exporting and importing profiles.
+
+PART 6 — INSTALLATION PLAN
+
+After the wizard, display a complete review screen.
+
+Divide operations into:
+
+INSTALL: Applications and components to install.
+
+REMOVE: Applications selected for removal.
+
+CONFIGURE: System settings and application preferences.
+
+KEEP: Existing software and user data that will remain unchanged.
+
+OPTIONAL CLEANUP: Caches and selected application data.
+
+For every operation explain:
+
+What will happen.
+Why it is needed.
+Package source.
+Required permissions.
+Potential consequences.
+
+Allow the user to edit the plan.
+
+Require final confirmation before executing changes.
+
+Create a task queue.
+
+Display:
+
+Current task.
+Progress.
+Completed tasks.
+Failed tasks.
+Remaining tasks.
+
+Support safe cancellation and meaningful error messages.
+
+Never claim success if an operation failed.
+
+PART 7 — APPLICATION MANAGER
+
+Create a separate application management page.
+
+Features:
+
+Search installed applications.
+Browse categories.
+View installed applications.
+Install applications.
+Remove applications.
+Check application updates.
+View application details.
+
+Detect package sources:
+
+Flatpak.
+APT.
+AppImage.
+Other recognized installation methods.
+
+Show package source and version.
+
+Do not attempt to uninstall applications through an unrelated package manager.
+
+PART 8 — FLATPAK MANAGER
+
+Create a dedicated Flatpak manager.
+
+Features:
+
+List installed Flatpak applications.
+Check for updates.
+Update applications.
+View runtimes.
+Detect unused runtimes.
+View Flatpak remotes.
+View application permissions.
+Uninstall applications.
+
+Display:
+
+Application ID.
+Publisher.
+Version.
+Remote.
+Permissions.
+
+Integrate with Flatseal where appropriate.
+
+Never remove shared runtimes without checking dependencies.
+
+PART 9 — MAINTENANCE CENTER
+
+Create a maintenance section.
+
+Include:
+
+SYSTEM UPDATES:
+
+Check APT updates.
+Install APT updates.
+Refresh Flatpak metadata.
+Update Flatpak applications.
+
+PACKAGE CLEANUP:
+
+Review package caches.
+Identify unused dependencies.
+Display cleanup estimates.
+
+TEMPORARY FILES:
+
+Find temporary files.
+Display their locations.
+Show file sizes.
+Ask before deletion.
+
+SYSTEM CHECKS:
+
+Check storage.
+Check filesystem information.
+Check firewall.
+Review package manager health.
+
+Never run destructive cleanup automatically.
+
+PART 10 — SYSTEM HEALTH
+
+Create a system health page.
+
+Display:
+
+Firewall status.
+System update status.
+Flatpak update status.
+Storage status.
+Backup status.
+Disk health where supported.
+Battery health where supported.
+
+Provide understandable recommendations.
+
+Clearly distinguish actual problems from optional improvements.
+
+Never invent a health score.
+
+PART 11 — STORAGE AND CLEANUP
+
+Create:
+
+STORAGE ANALYZER:
+
+Disk usage.
+Folder sizes.
+Large files.
+Mounted drives.
+
+DUPLICATE FINDER:
+
+Detect duplicate files.
+Compare file contents safely.
+Display matching files.
+Never automatically delete duplicates.
+
+CACHE CLEANUP:
+
+Temporary files.
+Application caches.
+Package caches.
+Unused Flatpak runtimes after dependency checks.
+
+APPLICATION DATA CLEANUP:
+
+When removing an application, offer:
+
+Keep application data.
+Remove selected application data.
+Review detected data manually.
+
+For example, Firefox profiles must be reviewed separately.
+
+Show exact paths and estimated disk usage.
+
+Explain that removing profiles can delete bookmarks, passwords, cookies and settings.
+
+Never delete personal documents automatically.
+
+Require explicit confirmation.
+
+PART 12 — HARDWARE AND DRIVERS
+
+Detect:
+
+CPU.
+GPU.
+RAM.
+Storage.
+Wi-Fi.
+Audio devices.
+Battery.
+Available driver information.
+
+Support detection for NVIDIA, AMD and Intel hardware.
+
+Provide explanations and shortcuts to the official Linux Mint Driver Manager.
+
+Do not automatically replace working drivers.
+
+Do not install kernel drivers blindly.
+
+PART 13 — RECOVERY AND BACKUPS
+
+Create a Recovery Center.
+
+TIMESHIFT:
+
+Detect Timeshift.
+Show installation status.
+Open Timeshift.
+Check available snapshots.
+Offer snapshot creation where supported.
+Show backup configuration.
+
+Before significant system changes, recommend creating a snapshot when Timeshift is configured.
+
+Never claim that a backup exists without verifying it.
+
+PERSONAL BACKUPS:
+
+Allow optional backup of:
+
+Documents.
+Downloads.
+Pictures.
+Videos.
+Desktop.
+Selected configuration files.
+
+Allow user-selected destinations.
+
+Clearly distinguish personal backups from system snapshots.
+
+Use established Linux backup tools.
+
+Do not reinvent system restoration mechanisms.
+
+PART 14 — DESKTOP CUSTOMIZATION
+
+Create a Linux Mint-focused customization page.
+
+Support:
+
+GTK themes.
+Icon themes.
+Cursor themes.
+Cinnamon themes.
+Applets.
+Desklets.
+Extensions.
+Panel preferences.
+Startup applications.
+
+Use official Cinnamon Spices sources where possible.
+
+Show previews and information.
+
+Never execute untrusted downloaded scripts automatically.
+
+Make changes reversible.
+
+PART 15 — DEVELOPER TOOLS
+
+Create a developer tools section.
+
+Offer:
+
+Git.
+Rust.
+Cargo.
+Python.
+Node.js.
+Build Essentials.
+Editors.
+Terminal utilities.
+Gear Lever.
+Flatpak Builder.
+
+Show installation status and package source.
+
+Explain each tool for beginners.
+
+PART 16 — OPERATION HISTORY
+
+Create a local operation history.
+
+Record:
+
+Installed applications.
+Removed applications.
+Updated packages.
+Changed settings.
+Firewall operations.
+Cleanup operations.
+Errors.
+
+Each record should include:
+
+Date.
+Operation.
+Status.
+Details.
+
+Keep logs local.
+
+Do not upload logs.
+
+Provide an option to export diagnostic logs.
+
+Never store passwords or secrets.
+
+PART 17 — CONFIGURATION PROFILES
+
+Create configuration export/import functionality.
+
+Allow users to:
+
+Export selected application preferences.
+Export application selections.
+Export mint-helper settings.
+Save Post Installation profiles.
+Import profiles after reinstalling Linux.
+Reuse profiles on another computer.
+
+Use a documented, versioned JSON format.
+
+Never export:
+
+Passwords.
+Browser credentials.
+Private keys.
+Personal files.
+Sensitive authentication tokens.
+
+Validate imported configurations.
+
+Generate a reviewable installation plan before applying imported settings.
+
+PART 18 — SETTINGS
+
+Include:
+
+Light theme.
+Dark theme.
+Follow system theme.
+Language.
+Notifications.
+Resource monitoring frequency.
+Package preference.
+Logging settings.
+Export configuration.
+Import configuration.
+
+Initially support:
+
+English.
+German.
+
+Prepare the application for additional translations.
+
+PART 19 — WEBSITE
+
+Build a separate mint-helper website using Astro.
+
+The website must not be embedded in the desktop application.
+
+It must be accessible independently through a browser.
+
+PAGES:
+
+HOME:
+
+Introduction.
+Features.
+Application screenshots.
+Latest version.
+Download section.
+Open-source commitment.
+
+DOWNLOADS:
+
+AppImage.
+Flatpak.
+Source code.
+GitHub Releases.
+Version.
+Architecture.
+File size.
+SHA256 checksum.
+Release notes.
+
+FEATURES:
+
+Post Installation.
+System Health.
+Applications.
+Maintenance.
+Security.
+Cleanup.
+Recovery.
+Customization.
+
+TUTORIALS:
+
+Write step-by-step instructions for:
+
+Downloading mint-helper.
+Running AppImage.
+Making AppImage executable.
+Installing Flatpak.
+Installing mint-helper through Flatpak.
+Building from source.
+Creating an AppImage.
+Using Post Installation.
+Installing Firefox.
+Installing uBlock Origin.
+Configuring the firewall.
+Using Timeshift.
+Managing Flatpak permissions.
+Troubleshooting errors.
+
+ABOUT:
+
+Project philosophy.
+License.
+Privacy.
+Contributors.
+Development status.
+
+CONTRIBUTING:
+
+Repository link.
+Bug reports.
+Feature requests.
+Contribution instructions.
+
+All downloads must link to actual published artifacts.
+
+Never create fake download buttons.
+
+PART 20 — APPIMAGE AND FLATPAK
+
+Prepare real release configurations.
+
+APPIMAGE:
+
+Build actual executable.
+Include desktop entry.
+Include application icon.
+Bundle required dependencies.
+Test startup.
+Test on a clean compatible Linux environment.
+
+Use linuxdeploy or another suitable packaging tool.
+
+FLATPAK:
+
+Create manifest.
+Define runtime.
+Define application ID.
+Configure required permissions.
+Add desktop entry.
+Add icons.
+Test installation and startup.
+
+Use minimum required permissions.
+
+Do not give unrestricted filesystem access unnecessarily.
+
+GitHub release automation
+
+Create GitHub Actions workflows for:
+
+Compilation.
+Tests.
+AppImage packaging.
+Flatpak build.
+SHA256 generation.
+Release upload.
+
+Use version tags to trigger stable releases.
+
+Do not publish unsuccessful builds.
+
+Do not pretend that a binary has been generated if the build has not actually succeeded.
+
+PART 21 — PROFESSIONAL DESIGN
+
+The website and application must look like a genuinely professional, human-designed open-source Linux product.
+
+Avoid generic AI-generated design.
+
+Visual identity:
+
+Restrained green accent.
+Neutral background.
+Clear typography.
+Deliberate spacing.
+Functional icons.
+Subtle borders.
+Consistent components.
+
+Avoid:
+
+Purple and blue AI aesthetics.
+Excessive gradients.
+Glassmorphism.
+Glowing elements.
+Unnecessary cards.
+Repetitive layouts.
+Decorative icons without purpose.
+Fake statistics.
+Placeholder content.
+
+Design the application for usability rather than decoration.
+
+Implement:
+
+Hover states.
+Focus states.
+Loading states.
+Empty states.
+Error states.
+Success messages.
+Progress indicators.
+Confirmation dialogs.
+
+Use actual application screenshots on the website.
+
+Do not use generated screenshots pretending to represent the real application.
+
+PART 22 — GITHUB REPOSITORY REQUIREMENTS
+
+This project is intended for public release on GitHub.
+
+Create a complete, professional GitHub repository.
+
+The repository must contain:
+
+README.md
+
+Write a detailed README.
+
+Include:
+
+Project name.
+Project logo or icon.
+Short description.
+Screenshots section.
+Features.
+Supported distributions.
+Installation instructions.
+Flatpak installation.
+AppImage installation.
+Build from source.
+Dependencies.
+Usage.
+Security information.
+Privacy statement.
+Project roadmap.
+Changelog.
+Contributing instructions.
+License.
+Acknowledgements.
+
+The README should be attractive and easy to navigate.
+
+Use real screenshots when available.
+
+Do not invent release numbers, download statistics, contributor counts, or completed features.
+
+If a feature is planned but not implemented, mark it as planned.
+
+LICENSE
+
+Include the complete text of the GNU General Public License version 3.
+
+Use SPDX identifier:
+
+GPL-3.0-or-later
+
+Ensure dependency licenses are compatible.
+
+CHANGELOG.md
+
+Create a dedicated changelog.
+
+Follow the Keep a Changelog format.
+
+Use semantic versioning.
+
+Organize entries under:
+
+Added.
+Changed.
+Fixed.
+Removed.
+Security.
+
+For the initial development release, clearly mark it as unreleased.
+
+Do not invent historical changes.
+
+CONTRIBUTING.md
+
+Include:
+
+How to set up development environment.
+Required tools.
+How to build the project.
+How to run tests.
+Code style.
+Commit guidelines.
+Pull request process.
+Bug reporting.
+Feature requests.
+SECURITY.md
+
+Include:
+
+Supported versions.
+How to report vulnerabilities.
+Responsible disclosure instructions.
+Security expectations.
+
+Do not invent a private email address.
+
+Use the GitHub Security Advisories process when available.
+
+CODE_OF_CONDUCT.md
+
+Use the Contributor Covenant, with the appropriate license and attribution.
+
+.gitignore
+
+Include appropriate exclusions for:
+
+Rust build output.
+Website build output.
+Generated binaries.
+Local environment files.
+IDE settings where appropriate.
+Temporary files.
+Secrets.
+GitHub issue templates
+
+Create:
+
+Bug report.
+Feature request.
+Documentation issue.
+GitHub pull request template
+
+Include:
+
+Summary.
+Changes.
+Testing.
+Screenshots where relevant.
+Breaking changes.
+Security considerations.
+GitHub workflows
+
+Create automated workflows for:
+
+Rust formatting.
+Rust linting.
+Rust tests.
+Website build.
+Release packaging.
+AppImage.
+Flatpak.
+
+Do not make the workflows claim success when a build or test fails.
+
+PART 23 — CHANGELOG MANAGEMENT
+
+The changelog is important.
+
+Whenever functionality changes, update CHANGELOG.md.
+
+Use this format:
+
+Changelog
+
+All notable changes to mint-helper are documented here.
+
+The format follows Keep a Changelog and the project uses Semantic Versioning.
+
+[Unreleased]
+Added
+Initial application structure.
+Initial documentation.
+Changed
+Fixed
+Security
+
+Do not leave example entries in the final changelog if they do not describe actual changes.
+
+When preparing a release:
+
+Move completed changes into the appropriate version.
+Add the release date.
+Update version metadata.
+Create a Git tag.
+Generate release notes.
+Attach actual release artifacts.
+
+Keep README and CHANGELOG information consistent.
+
+PART 24 — PROJECT DIRECTORY
+
+Use this structure:
+
+mint-helper/ | |-- app/ | |-- Cargo.toml | |-- Cargo.lock | |-- src/ | |-- assets/ | |-- tests/ | |-- website/ | |-- package.json | |-- astro.config.mjs | |-- src/ | |-- public/ | |-- packaging/ | |-- appimage/ | |-- flatpak/ | |-- docs/ | |-- installation.md | |-- build-from-source.md | |-- appimage.md | |-- flatpak.md | |-- troubleshooting.md | |-- architecture.md | |-- privacy.md | |-- assets/ | |-- icons/ | |-- screenshots/ | |-- branding/ | |-- scripts/ | |-- .github/ | |-- workflows/ | |-- ISSUE_TEMPLATE/ | |-- PULL_REQUEST_TEMPLATE.md | |-- README.md |-- LICENSE |-- CHANGELOG.md |-- CONTRIBUTING.md |-- SECURITY.md |-- CODE_OF_CONDUCT.md |-- .gitignore
+
+Keep the project organized.
+
+Do not place the website inside the desktop application.
+
+Do not commit generated AppImage binaries into the source tree unless there is a specific reason.
+
+Publish compiled release artifacts through GitHub Releases.
+
+PART 25 — DEVELOPMENT PROCESS
+
+You must work incrementally.
+
+Do not generate the entire application in one enormous untested file.
+
+Start by creating the project structure and foundational files.
+
+Then implement each module separately.
+
+For each phase:
+
+Create the required files.
+Implement the functionality.
+Compile where the environment permits.
+Run tests.
+Fix errors.
+Update documentation.
+Update CHANGELOG.md.
+Report what was actually completed.
+
+If you cannot execute Rust or Linux-specific commands in the current environment, provide the commands for running them on a supported Linux machine.
+
+Do not replace actual functionality with mock data.
+
+Do not create fake success messages.
+
+Do not create buttons that do nothing.
+
+If functionality is not implemented, mark it clearly as planned or disabled.
+
+Do not claim that the project is finished until all required components have been implemented and tested.
+
+PART 26 — IMPLEMENTATION PRIORITY
+
+Implement in this order.
+
+PHASE 1:
+
+Project structure.
+Rust application.
+GTK4 interface.
+Navigation.
+Overview.
+System information.
+
+PHASE 2:
+
+Post Installation wizard.
+Browser detection.
+Office configuration.
+Codecs.
+Firewall.
+Installation planning.
+
+PHASE 3:
+
+Application manager.
+Flatpak manager.
+Package detection.
+Install and uninstall.
+Operation progress.
+
+PHASE 4:
+
+Maintenance.
+System Health.
+Storage.
+Cleanup.
+Operation history.
+
+PHASE 5:
+
+Timeshift integration.
+Backups.
+Hardware.
+Customization.
+Developer tools.
+
+PHASE 6:
+
+Configuration export/import.
+Settings.
+Localization.
+
+PHASE 7:
+
+Astro website.
+Documentation.
+GitHub repository files.
+AppImage.
+Flatpak.
+GitHub Actions.
+
+PHASE 8:
+
+Security review.
+Performance review.
+UI review.
+Release testing.
+PART 27 — FINAL QUALITY REQUIREMENTS
+
+Before the project is considered ready:
+
+The application compiles.
+The application launches.
+The interface works.
+System information is real.
+Package detection works.
+Installation plans work.
+Privileged actions are controlled.
+Cleanup is safe.
+User data is protected.
+Cancellation works.
+Errors are handled.
+Website builds successfully.
+Download links point to real artifacts.
+AppImage is tested.
+Flatpak is tested.
+Documentation is complete.
+README is accurate.
+LICENSE is present.
+CHANGELOG is maintained.
+GitHub workflows work.
+
+Never claim untested functionality works.
+
+FINAL INSTRUCTION
+
+Build mint-helper as a real, professional, open-source Linux application.
+
+The most important goal is to make Linux Mint easier to use without sacrificing user control or system safety.
+
+The Post Installation wizard should be the main attraction.
+
+The Overview and System Health sections should make the application useful every day.
+
+The Maintenance, Recovery, Cleanup and Flatpak sections should make it useful long after the initial setup.
+
+The website should allow anyone to learn about mint-helper, download the actual AppImage or Flatpak, and follow beginner-friendly installation instructions.
+
+The GitHub repository should be professional, complete, documented and ready for public contributions.
+
+Prioritize reliability, security, performance, accessibility and thoughtful design.
+
+Do not stop at generating a frontend. Implement real features, real system integrations, real documentation and real release configurations.

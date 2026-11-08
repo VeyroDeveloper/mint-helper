@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="mintBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#407525" />
+      <stop offset="60%" stop-color="#355e20" />
+      <stop offset="100%" stop-color="#243f16" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a4ea60" />
+      <stop offset="50%" stop-color="#87cf3e" />
+      <stop offset="100%" stop-color="#5fa124" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.35" flood-color="#000000" />
+    </filter>
+  </defs>
+
+  <!-- Base Rounded Squircle typical of modern GNOME/Cinnamon desktop icons -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#mintBase)" stroke="#538c2f" stroke-width="2" filter="url(#shadow)" />
+
+  <!-- Inner subtle border -->
+  <rect x="12" y="12" width="104" height="104" rx="24" fill="none" stroke="#a4ea60" stroke-width="1" stroke-opacity="0.25" />
+
+  <!-- Linux Mint Inspired Leaf Emblem combined with System Companion Wrench / Gear motif -->
+  <g transform="translate(64, 64)">
+    <!-- Shield / Foundation backdrop -->
+    <path d="M 0 -36 C 24 -36 34 -24 34 2 C 34 26 12 40 0 46 C -12 40 -34 26 -34 2 C -34 -24 -24 -36 0 -36 Z" fill="#1e2e17" opacity="0.6" />
+
+    <!-- Stylized Mint Leaf -->
+    <path d="M 0 -32 C 22 -32 30 -18 30 6 C 30 26 8 38 0 42 C -8 38 -30 26 -30 6 C -30 -18 -22 -32 0 -32 Z" fill="url(#leafGrad)" />
+
+    <!-- Inner Central Leaf Vein -->
+    <path d="M 0 -24 L 0 32" stroke="#243f16" stroke-width="3" stroke-linecap="round" />
+    <path d="M 0 -12 C 8 -16 14 -12 18 -10" stroke="#243f16" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <path d="M 0 4 C 8 0 14 4 18 6" stroke="#243f16" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <path d="M 0 -4 C -8 -8 -14 -4 -18 -2" stroke="#243f16" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <path d="M 0 12 C -8 8 -14 12 -18 14" stroke="#243f16" stroke-width="2.5" stroke-linecap="round" fill="none" />
+
+    <!-- Companion Star / Check Badge -->
+    <circle cx="24" cy="24" r="14" fill="#ffffff" filter="url(#shadow)" />
+    <path d="M 19 24 L 23 28 L 30 19" fill="none" stroke="#407525" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

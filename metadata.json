@@ -1,0 +1,6 @@
+{
+  "name": "mint-helper",
+  "description": "The open-source companion and post-installation manager for Linux Mint with system health, package management, backups, and security.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

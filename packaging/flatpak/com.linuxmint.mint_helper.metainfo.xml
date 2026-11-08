@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.linuxmint.mint_helper</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>mint-helper</name>
+  <summary>The Linux Mint desktop companion and post-installation manager</summary>
+  <description>
+    <p>
+      mint-helper is a modern, lightweight, and trustworthy desktop companion designed for Linux Mint.
+      It streamlines initial post-installation tasks such as browser setup, media codecs, Microsoft-compatible fonts,
+      LibreOffice tabbed layout configuration, firewall protection, and system health checks.
+    </p>
+    <p>
+      Beyond the first setup, mint-helper serves as an ongoing maintenance station: monitor real hardware usage,
+      audit Flatpak permissions, clean unused package caches safely, verify Timeshift snapshots, and manage system updates.
+    </p>
+  </description>
+  <launchable type="desktop-id">com.linuxmint.mint_helper.desktop</launchable>
+  <developer_name>mint-helper Community Contributors</developer_name>
+  <url type="homepage">https://github.com/linuxmint-community/mint-helper</url>
+  <url type="bugtracker">https://github.com/linuxmint-community/mint-helper/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>mint-helper Overview Dashboard on Linux Mint Cinnamon</caption>
+      <image>https://raw.githubusercontent.com/linuxmint-community/mint-helper/main/assets/screenshots/overview.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.0" date="2026-11-08">
+      <description>
+        <p>Initial release of mint-helper featuring the 8-step Post Installation wizard, Real SysInfo Dashboard, Maintenance Center, and Timeshift recovery verification.</p>
+      </description>
+    </release>
+  </releases>
+</component>

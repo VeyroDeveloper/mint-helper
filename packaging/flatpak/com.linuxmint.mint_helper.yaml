@@ -1,0 +1,44 @@
+app-id: com.linuxmint.mint_helper
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: mint-helper
+
+finish-args:
+  # Display servers
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  # System notifications
+  - --talk-name=org.freedesktop.Notifications
+  # Access to Flatpak daemon to query and manage installed packages
+  - --talk-name=org.freedesktop.Flatpak
+  # Access to PackageKit for system package installation and update checks
+  - --system-talk-name=org.freedesktop.PackageKit
+  # Access to PolicyKit for privilege prompts
+  - --system-talk-name=org.freedesktop.PolicyKit1
+  # Timeshift logs for snapshot verification
+  - --filesystem=/var/log/timeshift:ro
+  # Configuration directory for profile exports
+  - --filesystem=xdg-config/mint-helper:create
+
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/mint-helper/cargo
+
+modules:
+  - name: mint-helper
+    buildsystem: simple
+    build-commands:
+      - cargo --offline fetch --manifest-path app/Cargo.toml
+      - cargo --offline build --manifest-path app/Cargo.toml --release --verbose
+      - install -Dm755 app/target/release/mint-helper /app/bin/mint-helper
+      - install -Dm644 packaging/flatpak/com.linuxmint.mint_helper.desktop /app/share/applications/com.linuxmint.mint_helper.desktop
+      - install -Dm644 assets/icons/mint-helper.svg /app/share/icons/hicolor/scalable/apps/com.linuxmint.mint_helper.svg
+      - install -Dm644 packaging/flatpak/com.linuxmint.mint_helper.metainfo.xml /app/share/metainfo/com.linuxmint.mint_helper.metainfo.xml
+    sources:
+      - type: dir
+        path: ../../

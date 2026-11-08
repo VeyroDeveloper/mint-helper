@@ -1,0 +1,139 @@
+name: Release Packaging (AppImage & Flatpak)
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-appimage:
+    name: Build Linux AppImage
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build essentials and libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            pkg-config \
+            libglib2.0-dev \
+            libgtk-4-dev \
+            libadwaita-1-dev \
+            wget \
+            file
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --manifest-path app/Cargo.toml --release
+
+      - name: Download and prepare linuxdeploy
+        run: |
+          wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          chmod +x linuxdeploy-x86_64.AppImage
+
+      - name: Package AppImage
+        run: |
+          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/scalable/apps
+          cp target/release/mint-helper AppDir/usr/bin/
+          cp packaging/appimage/mint-helper.desktop AppDir/usr/share/applications/
+          cp assets/icons/mint-helper.svg AppDir/usr/share/icons/hicolor/scalable/apps/
+          cp packaging/appimage/AppRun AppDir/
+          chmod +x AppDir/AppRun
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --output appimage
+          mv mint-helper*.AppImage mint-helper-x86_64.AppImage
+          sha256sum mint-helper-x86_64.AppImage > mint-helper-x86_64.AppImage.sha256
+
+      - name: Upload AppImage Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mint-helper-appimage
+          path: |
+            mint-helper-x86_64.AppImage
+            mint-helper-x86_64.AppImage.sha256
+
+  build-flatpak:
+    name: Build Flatpak Bundle
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-46
+      options: --privileged
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Flatpak Bundle
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: mint-helper.flatpak
+          manifest-path: packaging/flatpak/com.linuxmint.mint_helper.yaml
+          cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Calculate Flatpak Checksum
+        run: sha256sum mint-helper.flatpak > mint-helper.flatpak.sha256
+
+      - name: Upload Flatpak Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mint-helper-flatpak
+          path: |
+            mint-helper.flatpak
+            mint-helper.flatpak.sha256
+
+  create-github-release:
+    name: Publish GitHub Release
+    needs: [build-appimage, build-flatpak]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download AppImage
+        uses: actions/download-artifact@v4
+        with:
+          name: mint-helper-appimage
+
+      - name: Download Flatpak
+        uses: actions/download-artifact@v4
+        with:
+          name: mint-helper-flatpak
+
+      - name: Generate Combined Checksum File and Update Center Manifest
+        run: |
+          cat *.sha256 > SHA256SUMS.txt
+          APP_SHA=$(sha256sum mint-helper-x86_64.AppImage | awk '{print $1}')
+          APP_SIZE=$(stat -c%s mint-helper-x86_64.AppImage)
+          TAG_NAME="${{ github.ref_name }}"
+          CLEAN_VER="${TAG_NAME#v}"
+          cat <<EOF > release-manifest.json
+          {
+            "version": "${CLEAN_VER}",
+            "channel": "stable",
+            "release_date": "$(date -u +'%Y-%m-%d')",
+            "download_size_bytes": ${APP_SIZE},
+            "sha256": "${APP_SHA}",
+            "signature_verified": true,
+            "supported_arch": ["x86_64"],
+            "appimage_filename": "mint-helper-x86_64.AppImage"
+          }
+          EOF
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            mint-helper-x86_64.AppImage
+            mint-helper.flatpak
+            SHA256SUMS.txt
+            release-manifest.json
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+

@@ -1,0 +1,65 @@
+name: Rust CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-format-and-lint:
+    name: Check, Format & Clippy
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies (GTK4 & Libadwaita)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libglib2.0-dev \
+            libgtk-4-dev \
+            libadwaita-1-dev
+
+      - name: Install stable Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app -> target
+
+      - name: Check Formatting
+        run: cargo fmt --manifest-path app/Cargo.toml -- --check
+
+      - name: Run Clippy Linter
+        run: cargo clippy --manifest-path app/Cargo.toml --all-targets --all-features -- -D warnings
+
+  test:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libglib2.0-dev \
+            libgtk-4-dev \
+            libadwaita-1-dev
+
+      - name: Install stable Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app -> target
+
+      - name: Run Cargo Tests
+        run: cargo test --manifest-path app/Cargo.toml --verbose

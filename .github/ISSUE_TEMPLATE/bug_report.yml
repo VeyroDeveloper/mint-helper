@@ -1,0 +1,55 @@
+name: Bug Report
+description: Create a bug report to help improve mint-helper
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please ensure you are testing against a supported distribution (Linux Mint Cinnamon/MATE/Xfce or compatible Debian/Ubuntu base).
+  - type: input
+    id: os_info
+    attributes:
+      label: Operating System & Desktop Environment
+      description: e.g. Linux Mint 22.1 Cinnamon 6.2, or Linux Mint Debian Edition 6
+      placeholder: Linux Mint 22 Wilma (Cinnamon)
+    validations:
+      required: true
+  - type: input
+    id: package_format
+    attributes:
+      label: Packaging Format
+      description: Flatpak, AppImage, or Built from source
+      placeholder: Flatpak (Flathub)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Exact steps to reproduce the behavior.
+      placeholder: |
+        1. Open mint-helper
+        2. Go to 'Post Installation'
+        3. Select 'Browsers'
+        4. Click 'Apply'
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal / Diagnostic Logs
+      description: Paste any output from `mint-helper --debug` or terminal logs (ensure no sensitive info).

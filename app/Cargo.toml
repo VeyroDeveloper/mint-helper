@@ -1,0 +1,42 @@
+[package]
+name = "mint-helper"
+version = "1.0.0"
+edition = "2021"
+authors = ["mint-helper Contributors <community@linuxmint.com>"]
+description = "The Linux Mint desktop companion and post-installation manager"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/linuxmint-community/mint-helper"
+readme = "../README.md"
+keywords = ["linuxmint", "post-install", "flatpak", "system", "gtk4"]
+categories = ["gui", "os::linux-apis"]
+
+[dependencies]
+# GTK4 and Libadwaita bindings
+gtk4 = { version = "0.8", features = ["v4_12"] }
+libadwaita = { version = "0.6", features = ["v1_5"] }
+
+# System monitoring
+sysinfo = "0.30"
+
+# Serialization and Profile storage
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# File integrity & duplicate detection
+sha2 = "0.10"
+hex = "0.4"
+
+# Logging and Process Execution
+log = "0.4"
+env_logger = "0.11"
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+tempfile = "3.10"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
